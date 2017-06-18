@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kenny on 18.06.2017.
@@ -30,7 +34,11 @@ public class AddRecipe extends AppCompatActivity {
         setContentView(R.layout.add_recipe);
 
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
+
+
+
         dataSource = new DbMemoDataSource(this);
+        List<String> RecipeList = new ArrayList<String>();
 
         // Toolbar einrichten
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolAddRec);
@@ -80,8 +88,17 @@ public class AddRecipe extends AppCompatActivity {
                 int bonus = Integer.valueOf(bonusInt);
                 editTextHearts.setText("");
                 editTextRecipe.setText("");
-                //Datensatz einfügen in die Datenbank
-                dataSource.createDbMemo(recipe, hearts, bonus);
+
+                try{
+                    //Datensatz einfügen in die Datenbank
+                    dataSource.open();
+                    dataSource.createDbMemo(recipe, hearts, bonus);
+                    Log.d(LOG_TAG, "Succesfully inserted.");
+                    dataSource.close();
+                }
+                catch (Exception ex){
+                    Toast.makeText(getApplicationContext(),ex.toString(), Toast.LENGTH_LONG).show();
+                }
 
 
 
@@ -111,7 +128,9 @@ public class AddRecipe extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home){
-            onBackPressed();
+                Intent intent = new Intent(this, ShowRecipe.class);
+                startActivity(intent);
+
             return true;
         }
 

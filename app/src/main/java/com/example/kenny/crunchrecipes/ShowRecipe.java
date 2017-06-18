@@ -16,8 +16,10 @@ package com.example.kenny.crunchrecipes;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.ListView;
+        import android.widget.Toast;
         import android.widget.Toolbar;
 
+        import java.util.ArrayList;
         import java.util.List;
 
 
@@ -50,7 +52,6 @@ public class ShowRecipe extends AppCompatActivity {
     }
 
     private void showAllListEntries () {
-        Log.d(LOG_TAG, "Test");
         List<DbMemo> DbMemoList = dataSource.getAllDbMemos();
 
         ArrayAdapter<DbMemo> DbMemoArrayAdapter = new ArrayAdapter<> (
@@ -85,7 +86,8 @@ public class ShowRecipe extends AppCompatActivity {
         }
 
         if (id == android.R.id.home){
-            onBackPressed();
+            Intent intent = new Intent(this, HomeScreen.class);
+            startActivity(intent);
             return true;
         }
 
@@ -101,12 +103,17 @@ public class ShowRecipe extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
 
         Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
-        showAllListEntries();
+        try{
+            showAllListEntries();
+            dataSource.close();
+        }
+        catch (Exception ex){
+            Toast.makeText(getApplicationContext(),ex.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

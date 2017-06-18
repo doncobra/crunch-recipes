@@ -54,10 +54,7 @@ public class DbMemoDataSource {
                 null, null, null, null);
 
         cursor.moveToFirst();
-        DbMemo DbMemo = cursorToDbMemo(cursor);
-        cursor.close();
-
-        return DbMemo;
+        return cursorToDbMemo(cursor);
     }
 
     //Cursor in Daten-Objekt
@@ -85,9 +82,11 @@ public class DbMemoDataSource {
                 columns, null, null, null, null, null);
 
         cursor.moveToFirst();
+
+        if(cursor.getCount()==0) return DbMemoList;
         DbMemo DbMemo;
 
-        while(!cursor.isAfterLast()) {
+        while(cursor.isAfterLast() == false) {
             DbMemo = cursorToDbMemo(cursor);
             DbMemoList.add(DbMemo);
             Log.d(LOG_TAG, "ID: " + DbMemo.getId() + ", Inhalt: " + DbMemo.toString());
