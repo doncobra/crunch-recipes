@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DbMemoHelper extends SQLiteOpenHelper{
-    private static final String LOG_TAG = DbMemoHelper.class.getSimpleName();
+public class DbCrunchRHelper extends SQLiteOpenHelper{
+    private static final String LOG_TAG = DbCrunchRHelper.class.getSimpleName();
     public static final String DB_NAME = "crunch.db";
     public static final int DB_VERSION = 1;
 
@@ -27,7 +27,7 @@ public class DbMemoHelper extends SQLiteOpenHelper{
 
 
 
-    public DbMemoHelper(Context context) {
+    public DbCrunchRHelper(Context context) {
         //super(context, "PLATZHALTER_DATENBANKNAME", null, 1);
         super(context, DB_NAME, null, DB_VERSION);
         Log.d(LOG_TAG, "DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");

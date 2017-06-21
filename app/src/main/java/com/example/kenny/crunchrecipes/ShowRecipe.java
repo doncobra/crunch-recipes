@@ -4,29 +4,20 @@ package com.example.kenny.crunchrecipes;
         import android.os.Build;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.ToolbarWidgetWrapper;
-        import android.text.TextUtils;
-        import android.support.v7.app.ActionBarActivity;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuItem;
-        import android.view.View;
-        import android.view.inputmethod.InputMethodManager;
         import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.EditText;
         import android.widget.ListView;
         import android.widget.Toast;
-        import android.widget.Toolbar;
 
-        import java.util.ArrayList;
         import java.util.List;
 
 
 public class ShowRecipe extends AppCompatActivity {
 
     android.support.v7.widget.Toolbar toolbar;
-    private DbMemoDataSource dataSource;
+    private DbCrunchRDataSource dataSource;
 
     public static final String LOG_TAG = AddRecipe.class.getSimpleName();
 
@@ -48,13 +39,13 @@ public class ShowRecipe extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
-        dataSource = new DbMemoDataSource(this);
+        dataSource = new DbCrunchRDataSource(this);
     }
 
     private void showAllListEntries () {
-        List<DbMemo> DbMemoList = dataSource.getAllDbMemos();
+        List<DbCrunchR> DbMemoList = dataSource.getAllDbMemos();
 
-        ArrayAdapter<DbMemo> DbMemoArrayAdapter = new ArrayAdapter<> (
+        ArrayAdapter<DbCrunchR> DbMemoArrayAdapter = new ArrayAdapter<> (
                 this,
                 android.R.layout.simple_list_item_multiple_choice,
                 DbMemoList);

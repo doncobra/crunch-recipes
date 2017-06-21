@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,7 +21,7 @@ import java.util.List;
  */
 public class AddRecipe extends AppCompatActivity {
 
-    private DbMemoDataSource dataSource;
+    private DbCrunchRDataSource dataSource;
     private Button mBtSearch;
     public static final String LOG_TAG = AddRecipe.class.getSimpleName();
 
@@ -37,7 +36,7 @@ public class AddRecipe extends AppCompatActivity {
 
 
 
-        dataSource = new DbMemoDataSource(this);
+        dataSource = new DbCrunchRDataSource(this);
         List<String> RecipeList = new ArrayList<String>();
 
         // Toolbar einrichten

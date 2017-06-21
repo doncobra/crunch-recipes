@@ -10,23 +10,23 @@ import java.util.List;
 
 
 
-public class DbMemoDataSource {
-    private static final String LOG_TAG = DbMemoDataSource.class.getSimpleName();
+public class DbCrunchRDataSource {
+    private static final String LOG_TAG = DbCrunchRDataSource.class.getSimpleName();
 
     private SQLiteDatabase database;
-    private DbMemoHelper dbHelper;
+    private DbCrunchRHelper dbHelper;
 
     private String[] columns = {
-            DbMemoHelper.COLUMN_ID,
-            DbMemoHelper.COLUMN_RECIPE,
-            DbMemoHelper.COLUMN_HEARTS,
-            DbMemoHelper.COLUMN_BONUS_HEARTS
+            DbCrunchRHelper.COLUMN_ID,
+            DbCrunchRHelper.COLUMN_RECIPE,
+            DbCrunchRHelper.COLUMN_HEARTS,
+            DbCrunchRHelper.COLUMN_BONUS_HEARTS
     };
 
 
-    public DbMemoDataSource(Context context) {
+    public DbCrunchRDataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
-        dbHelper = new DbMemoHelper(context);
+        dbHelper = new DbCrunchRHelper(context);
     }
 
     public void open() {
@@ -41,16 +41,16 @@ public class DbMemoDataSource {
     }
 
     // Datensätze einfügen
-    public DbMemo createDbMemo(String recipe, int hearts, int bonus) {
+    public DbCrunchR createDbMemo(String recipe, int hearts, int bonus) {
         ContentValues values = new ContentValues();
-        values.put(DbMemoHelper.COLUMN_RECIPE, recipe);
-        values.put(DbMemoHelper.COLUMN_HEARTS, hearts);
-        values.put(DbMemoHelper.COLUMN_BONUS_HEARTS, bonus);
+        values.put(DbCrunchRHelper.COLUMN_RECIPE, recipe);
+        values.put(DbCrunchRHelper.COLUMN_HEARTS, hearts);
+        values.put(DbCrunchRHelper.COLUMN_BONUS_HEARTS, bonus);
 
-        long insertId = database.insert(DbMemoHelper.TABLE_RECIPE_LIST, null, values);
+        long insertId = database.insert(DbCrunchRHelper.TABLE_RECIPE_LIST, null, values);
 
-        Cursor cursor = database.query(DbMemoHelper.TABLE_RECIPE_LIST,
-                columns, DbMemoHelper.COLUMN_ID + "=" + insertId,
+        Cursor cursor = database.query(DbCrunchRHelper.TABLE_RECIPE_LIST,
+                columns, DbCrunchRHelper.COLUMN_ID + "=" + insertId,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -58,33 +58,33 @@ public class DbMemoDataSource {
     }
 
     //Cursor in Daten-Objekt
-    private DbMemo cursorToDbMemo(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(DbMemoHelper.COLUMN_ID);
-        int idRecipe = cursor.getColumnIndex(DbMemoHelper.COLUMN_RECIPE);
-        int idHearts = cursor.getColumnIndex(DbMemoHelper.COLUMN_HEARTS);
-        int idBonus = cursor.getColumnIndex(DbMemoHelper.COLUMN_BONUS_HEARTS);
+    private DbCrunchR cursorToDbMemo(Cursor cursor) {
+        int idIndex = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_ID);
+        int idRecipe = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_RECIPE);
+        int idHearts = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_HEARTS);
+        int idBonus = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_BONUS_HEARTS);
 
         String recipe = cursor.getString(idRecipe);
         int hearts = cursor.getInt(idHearts);
         int bonus = cursor.getInt(idBonus);
         long id = cursor.getLong(idIndex);
 
-        DbMemo DbMemo = new DbMemo(recipe, hearts, bonus, id);
+        DbCrunchR DbMemo = new DbCrunchR(recipe, hearts, bonus, id);
 
         return DbMemo;
     }
 
     // Alle Datensätze auslesen
-    public List<DbMemo> getAllDbMemos() {
-        List<DbMemo> DbMemoList = new ArrayList<>();
+    public List<DbCrunchR> getAllDbMemos() {
+        List<DbCrunchR> DbMemoList = new ArrayList<>();
 
-        Cursor cursor = database.query(DbMemoHelper.TABLE_RECIPE_LIST,
+        Cursor cursor = database.query(DbCrunchRHelper.TABLE_RECIPE_LIST,
                 columns, null, null, null, null, null);
 
         cursor.moveToFirst();
 
         if(cursor.getCount()==0) return DbMemoList;
-        DbMemo DbMemo;
+        DbCrunchR DbMemo;
 
         while(cursor.isAfterLast() == false) {
             DbMemo = cursorToDbMemo(cursor);

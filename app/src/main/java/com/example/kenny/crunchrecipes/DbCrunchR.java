@@ -1,6 +1,6 @@
 package com.example.kenny.crunchrecipes;
 
-public class DbMemo {
+public class DbCrunchR {
 
     private String recipe;
     private int hearts;
@@ -8,7 +8,7 @@ public class DbMemo {
     private long id;
 
 
-    public DbMemo(String recipe, int hearts, int bonus, long id) {
+    public DbCrunchR(String recipe, int hearts, int bonus, long id) {
         this.recipe = recipe;
         this.hearts = hearts;
         this.bonus = bonus;
