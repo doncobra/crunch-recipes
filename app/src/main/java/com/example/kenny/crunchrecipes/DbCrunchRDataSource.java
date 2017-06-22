@@ -16,7 +16,7 @@ public class DbCrunchRDataSource {
     private SQLiteDatabase database;
     private DbCrunchRHelper dbCrunchRHelper;
 
-    private String[] columns = {
+    private String[] columnsR = {
             DbCrunchRHelper.COLUMN_ID_RECIPE,
             DbCrunchRHelper.COLUMN_RECIPE,
             DbCrunchRHelper.COLUMN_FAVO,
@@ -29,6 +29,12 @@ public class DbCrunchRDataSource {
             DbCrunchRHelper.COLUMN_BUFF,
             DbCrunchRHelper.COLUMN_LEVEL,
             DbCrunchRHelper.COLUMN_TIME
+    };
+
+    private String[] columnsI = {
+            DbCrunchRHelper.COLUMN_ID_ITEM,
+            DbCrunchRHelper.COLUMN_ITEM,
+            DbCrunchRHelper.COLUMN_LOCATION,
     };
 
 
@@ -66,15 +72,15 @@ public class DbCrunchRDataSource {
         long insertId = database.insert(DbCrunchRHelper.TABLE_RECIPE_LIST, null, values);
 
         Cursor cursor = database.query(DbCrunchRHelper.TABLE_RECIPE_LIST,
-                columns, DbCrunchRHelper.COLUMN_ID_RECIPE + "=" + insertId,
+                columnsR, DbCrunchRHelper.COLUMN_ID_RECIPE + "=" + insertId,
                 null, null, null, null);
 
         cursor.moveToFirst();
-        return cursorToDbMemo(cursor);
+        return cursorToDbRecipe(cursor);
     }
 
-    //Cursor in Daten-Objekt
-    private DbCrunchR cursorToDbMemo(Cursor cursor) {
+    //Cursor in Daten-Objekt Recipes
+    private DbCrunchR cursorToDbRecipe(Cursor cursor) {
         int idIndex = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_ID_RECIPE);
         int idRecipe = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_RECIPE);
         int idFavo = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_FAVO);
@@ -110,7 +116,7 @@ public class DbCrunchRDataSource {
         List<DbCrunchR> list_recipe = new ArrayList<>();
 
         Cursor cursor = database.query(DbCrunchRHelper.TABLE_RECIPE_LIST,
-                columns, null, null, null, null, null);
+                columnsR, null, null, null, null, null);
 
         cursor.moveToFirst();
 
@@ -118,7 +124,7 @@ public class DbCrunchRDataSource {
         DbCrunchR recipes;
 
         while(cursor.isAfterLast() == false) {
-            recipes = cursorToDbMemo(cursor);
+            recipes = cursorToDbRecipe(cursor);
             list_recipe.add(recipes);
             Log.d(LOG_TAG, "ID: " + recipes.getId() + ", Inhalt: " + recipes.toString());
             cursor.moveToNext();
@@ -128,21 +134,40 @@ public class DbCrunchRDataSource {
 
         return list_recipe;
     }
+    //Cursor in Daten-Objekt
+    private DbCrunchI cursorToDbItem(Cursor cursor) {
+        int idItemId = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_ID_ITEM);
+        int idItem = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_ITEM);
+        int idLocation = cursor.getColumnIndex(DbCrunchRHelper.COLUMN_LOCATION);
+
+        long idI = cursor.getLong(idItemId);
+        String item = cursor.getString(idItem);
+        String location = cursor.getString(idLocation);
 
 
-    // Datensätze einfügen Ingredients
-    public DbCrunchR createDbItem(String item, String location) {
-        ContentValues values = new ContentValues();
-        values.put(DbCrunchRHelper.COLUMN_ITEM, item);
-        values.put(DbCrunchRHelper.COLUMN_LOCATION, location);
-
-        long insertId = database.insert(DbCrunchRHelper.TABLE_ITEM_LIST, null, values);
+        return new DbCrunchI(idI,item,location);
+    }
+    // Alle Datensätze auslesen Ingredients
+   public List<DbCrunchI> getAllItems() {
+        List<DbCrunchI> list_item = new ArrayList<>();
 
         Cursor cursor = database.query(DbCrunchRHelper.TABLE_ITEM_LIST,
-                columns, DbCrunchRHelper.COLUMN_ID_RECIPE + "=" + insertId,
-                null, null, null, null);
+                columnsI, null, null, null, null, null);
 
         cursor.moveToFirst();
-        return cursorToDbMemo(cursor);
+
+        if(cursor.getCount()==0) return list_item;
+        DbCrunchI item;
+
+        while(cursor.isAfterLast() == false) {
+            item = cursorToDbItem(cursor);
+            list_item.add(item);
+            Log.d(LOG_TAG, "Item: " + item.getItem() + ", Inhalt: " + item.toString());
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return list_item;
     }
 }

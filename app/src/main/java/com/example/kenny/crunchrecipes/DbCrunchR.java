@@ -15,13 +15,10 @@ public class DbCrunchR {
     private int buff;
     private int level;
     private int time;
-    private long idI;
-    private String item;
-    private String location;
 
 
-    public DbCrunchR(long id, String recipe, int favo, String ing_1, String ing_2, String ing_3, String ing_4, String ing_5, int heal, int buff, int level, int time) {
-        this.idR = id;
+    public DbCrunchR(long idR, String recipe, int favo, String ing_1, String ing_2, String ing_3, String ing_4, String ing_5, int heal, int buff, int level, int time) {
+        this.idR = idR;
         this.recipe = recipe;
         this.favo = favo;
         this.ing_1 = ing_1;
@@ -34,9 +31,7 @@ public class DbCrunchR {
         this.level = level;
         this.time = time;
     }
-    public String getRecipe() {
-        return recipe;
-    }
+    public String getRecipe() {return recipe;   }
 
     public void setRecipe(String recipe) {
         this.recipe = recipe;

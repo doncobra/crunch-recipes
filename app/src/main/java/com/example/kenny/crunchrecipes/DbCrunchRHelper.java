@@ -1,5 +1,6 @@
 package com.example.kenny.crunchrecipes;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -70,6 +71,12 @@ public class DbCrunchRHelper extends SQLiteOpenHelper{
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_ITEMS + " angelegt.");
             db.execSQL(SQL_CREATE_RECIPE);
             db.execSQL(SQL_CREATE_ITEMS);
+
+            db.execSQL("INSERT INTO " + TABLE_ITEM_LIST+ "(ItemName, Location ) VALUES ('Birne', 'Hyrule')");
+            db.execSQL("INSERT INTO " + TABLE_ITEM_LIST+ "(ItemName, Location ) VALUES ('Apfel', 'Hyrule')");
+            db.execSQL("INSERT INTO " + TABLE_ITEM_LIST+ "(ItemName, Location ) VALUES ('Pfote', 'Entenhausen')");
+            db.execSQL("INSERT INTO " + TABLE_ITEM_LIST+ "(ItemName, Location ) VALUES ('Banana', 'Klappsmühle')");
+            db.execSQL("INSERT INTO " + TABLE_ITEM_LIST+ "(ItemName, Location ) VALUES ('Wooot', 'Somewhere')");
         }
         catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());

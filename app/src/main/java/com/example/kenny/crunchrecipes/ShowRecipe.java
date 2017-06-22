@@ -50,10 +50,21 @@ public class ShowRecipe extends AppCompatActivity {
                 android.R.layout.simple_list_item_multiple_choice,
                 list_recipe);
 
-        ListView DbMemosListView = (ListView) findViewById(R.id.listview_db_memos);
+        ListView DbMemosListView = (ListView) findViewById(R.id.listview_db_Recipe);
         DbMemosListView.setAdapter(DbMemoArrayAdapter);
-        Log.d(LOG_TAG, "Test");
     }
+/* Alle Ingredants
+    private void showAllListEntriesItem () {
+        List<DbCrunchI> list_item = dataSource.getAllItems();
+
+        ArrayAdapter<DbCrunchI> DbMemoArrayAdapter1 = new ArrayAdapter<> (
+                this,
+                android.R.layout.simple_list_item_multiple_choice,
+                list_item);
+
+        ListView DbMemosListView1 = (ListView) findViewById(R.id.listview_db_Item);
+        DbMemosListView1.setAdapter(DbMemoArrayAdapter1);
+    }*/
 
     // Menu Einrichten
     @Override
@@ -100,6 +111,7 @@ public class ShowRecipe extends AppCompatActivity {
         Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
         try{
             showAllListEntries();
+            //showAllListEntriesItem();
             dataSource.close();
         }
         catch (Exception ex){

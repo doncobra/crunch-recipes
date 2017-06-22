@@ -22,10 +22,10 @@
 
 
         <ListView
+            android:id="@+id/listview_db_Recipe"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/ToolRec"
-            android:id="@+id/listview_db_memos"
             android:layout_gravity="center_horizontal" />
 
 </RelativeLayout>
