@@ -43,12 +43,12 @@ public class ShowRecipe extends AppCompatActivity {
     }
 
     private void showAllListEntries () {
-        List<DbCrunchR> DbMemoList = dataSource.getAllDbMemos();
+        List<DbCrunchR> list_recipe = dataSource.getAllRecipes();
 
         ArrayAdapter<DbCrunchR> DbMemoArrayAdapter = new ArrayAdapter<> (
                 this,
                 android.R.layout.simple_list_item_multiple_choice,
-                DbMemoList);
+                list_recipe);
 
         ListView DbMemosListView = (ListView) findViewById(R.id.listview_db_memos);
         DbMemosListView.setAdapter(DbMemoArrayAdapter);

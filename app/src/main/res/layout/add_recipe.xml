@@ -80,7 +80,7 @@
         android:layout_alignStart="@+id/editText_RecName" />
 
     <EditText
-        android:id="@+id/editText_Hearts"
+        android:id="@+id/editText_Heal"
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:inputType="number"

@@ -61,7 +61,7 @@ public class AddRecipe extends AppCompatActivity {
     //AddButton
     private void AddButton() {
         Button buttonAddRecipe = (Button) findViewById(R.id.Add_Recipe);
-        final EditText editTextHearts = (EditText) findViewById(R.id.editText_Hearts);
+        final EditText editTextHeal = (EditText) findViewById(R.id.editText_Heal);
         final EditText editTextRecipe = (EditText) findViewById(R.id.editText_RecName);
         final EditText editTextExtra = (EditText) findViewById(R.id.editText_Extra);
 
@@ -71,11 +71,11 @@ public class AddRecipe extends AppCompatActivity {
 
 
                 String recipe = editTextRecipe.getText().toString();
-                String heartsInt = editTextHearts.getText().toString();
+                String heartsInt = editTextHeal.getText().toString();
                 String bonusInt = editTextExtra.getText().toString();
 
                 if(TextUtils.isEmpty(heartsInt)) {
-                    editTextHearts.setError(getString(R.string.editText_errorMessage));
+                    editTextHeal.setError(getString(R.string.editText_errorMessage));
                     return;
                 }
                 if(TextUtils.isEmpty(recipe)) {
@@ -83,15 +83,15 @@ public class AddRecipe extends AppCompatActivity {
                     return;
                 }
 
-                int hearts = Integer.valueOf(heartsInt);
-                int bonus = Integer.valueOf(bonusInt);
-                editTextHearts.setText("");
+                int heal = Integer.valueOf(heartsInt);
+                int buff = Integer.valueOf(bonusInt);
+                editTextHeal.setText("");
                 editTextRecipe.setText("");
 
                 try{
                     //Datensatz einfügen in die Datenbank
                     dataSource.open();
-                    dataSource.createDbMemo(recipe, hearts, bonus);
+                    dataSource.createDbRecipe(recipe, 0, null, null, null, null, null, heal, buff, 0, 0);
                     Log.d(LOG_TAG, "Succesfully inserted.");
                     dataSource.close();
                 }
