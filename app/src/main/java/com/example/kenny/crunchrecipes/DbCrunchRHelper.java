@@ -26,7 +26,7 @@ public class DbCrunchRHelper extends SQLiteOpenHelper{
     public static final String COLUMN_LEVEL = "Level";
     public static final String COLUMN_TIME = "Time";
 
-    public static final String COLUMN_ID_ITEMS = "Id";
+    public static final String COLUMN_ID_ITEM = "Id";
     public static final String COLUMN_ITEM = "ItemName";
     public static final String COLUMN_LOCATION = "Location";
 
@@ -48,7 +48,7 @@ public class DbCrunchRHelper extends SQLiteOpenHelper{
 
     public static final String SQL_CREATE_ITEMS =
             "CREATE TABLE " + TABLE_ITEM_LIST +
-                    "(" + COLUMN_ID_ITEMS + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "(" + COLUMN_ID_ITEM + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_ITEM + " TEXT NOT NULL, " +
                     COLUMN_LOCATION + " TEXT NOT NULL);";
 

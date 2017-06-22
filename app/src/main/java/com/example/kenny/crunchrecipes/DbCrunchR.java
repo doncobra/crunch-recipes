@@ -3,7 +3,7 @@ package com.example.kenny.crunchrecipes;
 public class DbCrunchR {
 
 
-    private long id;
+    private long idR;
     private String recipe;
     private int favo;
     private String ing_1;
@@ -15,10 +15,13 @@ public class DbCrunchR {
     private int buff;
     private int level;
     private int time;
+    private long idI;
+    private String item;
+    private String location;
 
 
     public DbCrunchR(long id, String recipe, int favo, String ing_1, String ing_2, String ing_3, String ing_4, String ing_5, int heal, int buff, int level, int time) {
-        this.id = id;
+        this.idR = id;
         this.recipe = recipe;
         this.favo = favo;
         this.ing_1 = ing_1;
@@ -31,8 +34,6 @@ public class DbCrunchR {
         this.level = level;
         this.time = time;
     }
-
-
     public String getRecipe() {
         return recipe;
     }
@@ -104,10 +105,9 @@ public class DbCrunchR {
         this.time = time;
     }
 
-    public long getId() {return id; }
-
+    public long getId() {return idR; }
     public void setId(long id) {
-        this.id = id;
+        this.idR = id;
     }
 
 

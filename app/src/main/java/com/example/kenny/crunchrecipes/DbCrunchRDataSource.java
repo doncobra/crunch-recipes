@@ -48,7 +48,7 @@ public class DbCrunchRDataSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-    // Datensätze einfügen
+    // Datensätze einfügen Rezepte
     public DbCrunchR createDbRecipe(String recipe, int favo, String ing_1, String ing_2, String ing_3, String ing_4, String ing_5, int heal, int buff, int level, int time) {
         ContentValues values = new ContentValues();
         values.put(DbCrunchRHelper.COLUMN_RECIPE, recipe);
@@ -127,5 +127,22 @@ public class DbCrunchRDataSource {
         cursor.close();
 
         return list_recipe;
+    }
+
+
+    // Datensätze einfügen Ingredients
+    public DbCrunchR createDbItem(String item, String location) {
+        ContentValues values = new ContentValues();
+        values.put(DbCrunchRHelper.COLUMN_ITEM, item);
+        values.put(DbCrunchRHelper.COLUMN_LOCATION, location);
+
+        long insertId = database.insert(DbCrunchRHelper.TABLE_ITEM_LIST, null, values);
+
+        Cursor cursor = database.query(DbCrunchRHelper.TABLE_ITEM_LIST,
+                columns, DbCrunchRHelper.COLUMN_ID_RECIPE + "=" + insertId,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        return cursorToDbMemo(cursor);
     }
 }

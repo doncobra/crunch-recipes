@@ -89,7 +89,7 @@ public class AddRecipe extends AppCompatActivity {
                 editTextRecipe.setText("");
 
                 try{
-                    //Datensatz einfügen in die Datenbank
+                    //Datensatz einfügen in die Datenbanktabelle Rezepte
                     dataSource.open();
                     dataSource.createDbRecipe(recipe, 0, null, null, null, null, null, heal, buff, 0, 0);
                     Log.d(LOG_TAG, "Succesfully inserted.");
